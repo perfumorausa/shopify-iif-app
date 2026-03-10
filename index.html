@@ -927,7 +927,8 @@
 //  ⚠️  SETUP: Replace with your Google Cloud OAuth 2.0 Client ID
 //  See README.md for how to get this
 // ═══════════════════════════════════════════════════════════════════
-const GOOGLE_CLIENT_ID = '633645127702-pi4s0aba6og7hd3jckirsg26sljbsrce.apps.googleusercontent.com'
+const GOOGLE_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+
 const DRIVE_ROOT  = 'QB IIF Output';
 const MONTH_NAMES = ['January','February','March','April','May','June',
                      'July','August','September','October','November','December'];
@@ -1105,17 +1106,22 @@ function loadCachedQB() {
 // ═══════════════════════════════════════════════════════════════════
 function handleShopifyFiles(files) {
   Array.from(files).forEach(f => {
-    Papa.parse(f, {
-      header: true, skipEmptyLines: true,
-      complete: r => addBrandFile(f.name, r.data),
-    });
+    const reader = new FileReader();
+    reader.onload = e => {
+      const rawContent = e.target.result;
+      Papa.parse(f, {
+        header: true, skipEmptyLines: true,
+        complete: r => addBrandFile(f.name, r.data, rawContent),
+      });
+    };
+    reader.readAsText(f);
   });
 }
 
-function addBrandFile(fileName, rows) {
+function addBrandFile(fileName, rows, rawContent) {
   const vendor = rows.find(r => r['Vendor'])?.Vendor || '';
   const brand  = detectBrand(vendor);
-  S.brandFiles.push({ id: Date.now() + Math.random(), brand, fileName, rows });
+  S.brandFiles.push({ id: Date.now() + Math.random(), brand, fileName, rows, rawContent });
   renderFiles();
   markDone(2);
 }
@@ -1482,17 +1488,35 @@ async function uploadFile(content, fileName, parentId) {
 }
 
 async function saveToDrive(content, fileName, year, monthName) {
-  showEl('drive-status', `<div class="status-msg status-info"><div class="spinner spinner-amber"></div>&nbsp; Saving to Google Drive…</div>`);
+  showEl('drive-status', '<div class="status-msg status-info"><div class="spinner spinner-amber"></div>&nbsp; Saving to Google Drive...</div>');
   try {
+    const today   = fmtDate(new Date()).replace(/[/]/g, '-');
     const rootId  = await findOrCreate(DRIVE_ROOT);
     const yearId  = await findOrCreate(String(year), rootId);
     const monthId = await findOrCreate(monthName, yearId);
+
+    // Save IIF
     await uploadFile(content, fileName, monthId);
+
+    // Save each brand CSV into its own subfolder
+    const savedBrands = [];
+    for (const bf of S.brandFiles) {
+      if (!bf.rawContent) continue;
+      const brandFolderId = await findOrCreate(bf.brand, monthId);
+      const safeBrand = bf.brand.replace(/[^\w\s-]/g, '').replace(/\s+/g, '_');
+      const csvName = safeBrand + '_' + today + '.csv';
+      await uploadFile(bf.rawContent, csvName, brandFolderId);
+      savedBrands.push(bf.brand + ' / ' + csvName);
+    }
+
+    const brandLines = savedBrands.map(b => '<br>&nbsp;&nbsp;&nbsp;- ' + b).join('');
     showEl('drive-status',
-      `<div class="status-msg status-success">✓ Saved to Drive: ${DRIVE_ROOT} / ${year} / ${monthName} / ${fileName}</div>`);
+      '<div class="status-msg status-success">Saved to Drive: ' +
+      DRIVE_ROOT + ' / ' + year + ' / ' + monthName + ' /<br>' +
+      '&nbsp;&nbsp;&nbsp;- ' + fileName + brandLines + '</div>');
   } catch(err) {
     showEl('drive-status',
-      `<div class="status-msg status-error">⚠️ Drive save failed: ${err.message}. Use the download button below.</div>`);
+      '<div class="status-msg status-error">Drive save failed: ' + err.message + '. Use the download button below.</div>');
   }
 }
 
