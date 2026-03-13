@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IIF Converter — Perfumora Group</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     :root {
       --bg: #0c0c0e;
@@ -37,7 +39,6 @@
       min-height: 100vh;
     }
 
-    /* ── LOGIN ─────────────────────────────────────────────────── */
     #login-screen {
       min-height: 100vh;
       display: flex;
@@ -60,8 +61,10 @@
     #login-screen::after {
       content: '';
       position: absolute;
-      top: -200px; left: -200px;
-      width: 600px; height: 600px;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
       background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 60%);
       pointer-events: none;
     }
@@ -128,7 +131,6 @@
       display: none;
     }
 
-    /* ── APP SHELL ─────────────────────────────────────────────── */
     #app { display: none; min-height: 100vh; }
 
     .topbar {
@@ -144,7 +146,11 @@
       z-index: 100;
     }
 
-    .topbar-brand { font-family: var(--display); font-size: 1.2rem; color: var(--amber); }
+    .topbar-brand {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      color: var(--amber);
+    }
 
     .topbar-right {
       display: flex;
@@ -155,7 +161,8 @@
     }
 
     .user-avatar {
-      width: 28px; height: 28px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 1px solid var(--border2);
       object-fit: cover;
@@ -172,7 +179,11 @@
       font-family: var(--body);
       transition: all 0.15s;
     }
-    .logout-btn:hover { border-color: var(--error); color: var(--error); }
+
+    .logout-btn:hover {
+      border-color: var(--error);
+      color: var(--error);
+    }
 
     .layout {
       display: grid;
@@ -180,7 +191,6 @@
       min-height: calc(100vh - 58px);
     }
 
-    /* ── SIDEBAR ───────────────────────────────────────────────── */
     .sidebar {
       background: var(--surface);
       border-right: 1px solid var(--border);
@@ -221,7 +231,8 @@
     }
 
     .step-num {
-      width: 22px; height: 22px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       border: 1px solid var(--border2);
       display: flex;
@@ -247,16 +258,18 @@
       color: #fff;
     }
 
-    /* ── CONTENT ───────────────────────────────────────────────── */
     .content {
       padding: 3rem 3.5rem;
-      max-width: 840px;
+      max-width: 900px;
     }
 
     .step-panel { display: none; animation: fadeIn 0.25s ease; }
     .step-panel.active { display: block; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     .step-title {
       font-family: var(--display);
@@ -271,7 +284,7 @@
       font-size: 0.88rem;
       margin-bottom: 2.5rem;
       line-height: 1.7;
-      max-width: 600px;
+      max-width: 700px;
     }
 
     code {
@@ -283,7 +296,6 @@
       border-radius: 3px;
     }
 
-    /* ── UPLOAD ZONE ───────────────────────────────────────────── */
     .upload-zone {
       border: 1px dashed var(--border2);
       border-radius: 8px;
@@ -303,7 +315,6 @@
     .upload-zone h3 { font-size: 0.95rem; margin-bottom: 0.5rem; font-weight: 500; }
     .upload-zone p { font-size: 0.78rem; color: var(--text-muted); font-family: var(--mono); }
 
-    /* ── FILE LIST ─────────────────────────────────────────────── */
     .file-list { display: flex; flex-direction: column; gap: 8px; margin-top: 1.25rem; }
 
     .file-row {
@@ -322,18 +333,28 @@
     .file-name { font-size: 0.84rem; font-family: var(--mono); color: var(--text); }
     .file-meta { font-size: 0.73rem; color: var(--text-muted); margin-top: 2px; }
 
-    .brand-select {
-      background: var(--surface);
+    .brand-select,
+    .form-select,
+    .form-input,
+    .acc-field input {
+      background: var(--surface2);
       border: 1px solid var(--border2);
       color: var(--text);
-      padding: 7px 10px;
-      border-radius: 4px;
-      font-size: 0.82rem;
+      padding: 10px 13px;
+      border-radius: 5px;
+      font-size: 0.9rem;
       font-family: var(--body);
+      transition: border-color 0.15s;
       width: 100%;
     }
 
-    .brand-select:focus { outline: none; border-color: var(--amber); }
+    .brand-select:focus,
+    .form-select:focus,
+    .form-input:focus,
+    .acc-field input:focus {
+      outline: none;
+      border-color: var(--amber);
+    }
 
     .remove-btn {
       background: none;
@@ -345,12 +366,12 @@
       transition: color 0.15s;
       line-height: 1;
     }
+
     .remove-btn:hover { color: var(--error); }
 
-    /* ── FORM ELEMENTS ─────────────────────────────────────────── */
     .config-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 1.25rem;
       margin-bottom: 1.75rem;
     }
@@ -365,23 +386,6 @@
       color: var(--text-muted);
     }
 
-    .form-select, .form-input {
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      padding: 10px 13px;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      font-family: var(--body);
-      transition: border-color 0.15s;
-    }
-
-    .form-select:focus, .form-input:focus {
-      outline: none;
-      border-color: var(--amber);
-    }
-
-    /* ── QB CONFIG ACCORDION ───────────────────────────────────── */
     .accordion {
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -412,7 +416,11 @@
       border-top: 1px solid var(--border);
     }
 
-    .acc-field { display: flex; flex-direction: column; gap: 4px; }
+    .acc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
     .acc-field label {
       font-size: 0.68rem;
@@ -422,20 +430,6 @@
       letter-spacing: 0.08em;
     }
 
-    .acc-field input {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      padding: 7px 10px;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      font-family: var(--mono);
-      transition: border-color 0.15s;
-    }
-
-    .acc-field input:focus { outline: none; border-color: var(--amber); }
-
-    /* ── CONVERT BUTTON ────────────────────────────────────────── */
     .convert-btn {
       display: flex;
       align-items: center;
@@ -462,9 +456,13 @@
       box-shadow: 0 6px 24px rgba(240,165,0,0.25);
     }
 
-    .convert-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .convert-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
 
-    /* ── RESULTS TABLE ─────────────────────────────────────────── */
     .result-box {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -491,7 +489,11 @@
       font-weight: 500;
     }
 
-    .result-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
 
     .result-table th {
       padding: 10px 18px;
@@ -526,14 +528,14 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      background: rgba(200,200,200,0.07);
+      color: var(--text-dim);
     }
 
     .badge-tiktok  { background: rgba(255,50,100,0.12); color: #ff6688; }
     .badge-faire   { background: rgba(80,200,120,0.12); color: #70cc90; }
     .badge-shopify { background: rgba(100,160,255,0.12); color: #90b8ff; }
-    .badge-other   { background: rgba(200,200,200,0.07); color: var(--text-dim); }
 
-    /* ── STATUS MESSAGES ───────────────────────────────────────── */
     .status-msg {
       display: flex;
       align-items: flex-start;
@@ -546,9 +548,9 @@
     }
 
     .status-success { background: rgba(76,175,125,0.08); border: 1px solid rgba(76,175,125,0.25); color: #7dd4a8; }
-    .status-error   { background: rgba(224,82,82,0.08);  border: 1px solid rgba(224,82,82,0.25);  color: #e88080; }
-    .status-info    { background: rgba(240,165,0,0.07);  border: 1px solid rgba(240,165,0,0.2);   color: #f0b840; }
-    .status-warn    { background: rgba(240,165,0,0.07);  border: 1px solid rgba(240,165,0,0.2);   color: #d4a030; }
+    .status-error   { background: rgba(224,82,82,0.08); border: 1px solid rgba(224,82,82,0.25); color: #e88080; }
+    .status-info    { background: rgba(240,165,0,0.07); border: 1px solid rgba(240,165,0,0.2); color: #f0b840; }
+    .status-warn    { background: rgba(240,165,0,0.07); border: 1px solid rgba(240,165,0,0.2); color: #d4a030; }
 
     .cached-badge {
       display: inline-flex;
@@ -564,7 +566,6 @@
       margin-bottom: 1rem;
     }
 
-    /* ── ACTION BUTTONS ────────────────────────────────────────── */
     .action-row {
       display: flex;
       gap: 10px;
@@ -593,6 +594,7 @@
       border-color: var(--amber);
       font-weight: 700;
     }
+
     .action-btn.primary:hover { background: var(--amber-dark); }
 
     .action-btn.secondary {
@@ -600,9 +602,9 @@
       color: var(--text-dim);
       border-color: var(--border2);
     }
+
     .action-btn.secondary:hover { border-color: var(--amber); color: var(--amber); }
 
-    /* ── NAVIGATION ────────────────────────────────────────────── */
     .nav-row {
       display: flex;
       justify-content: space-between;
@@ -629,7 +631,6 @@
     .nav-btn.next  { background: var(--amber); color: var(--bg); border-color: var(--amber); font-weight: 700; }
     .nav-btn.next:hover { background: var(--amber-dark); }
 
-    /* ── DRIVE PATH PREVIEW ────────────────────────────────────── */
     .drive-path {
       font-family: var(--mono);
       font-size: 0.76rem;
@@ -644,11 +645,11 @@
     .drive-path .seg { color: var(--amber); }
     .drive-path .sep { color: var(--text-muted); }
 
-    /* ── SPINNER ───────────────────────────────────────────────── */
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .spinner {
-      width: 16px; height: 16px;
+      width: 16px;
+      height: 16px;
       border: 2px solid rgba(0,0,0,0.2);
       border-top-color: var(--bg);
       border-radius: 50%;
@@ -661,32 +662,25 @@
       border-top-color: var(--amber);
     }
 
-    /* ── DIVIDER ───────────────────────────────────────────────── */
-    .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
-
-    /* ── SCROLLBAR ─────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-    /* ── RESPONSIVE ────────────────────────────────────────────── */
-    @media (max-width: 720px) {
+    @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
       .sidebar { display: none; }
       .content { padding: 1.5rem; }
       .config-grid, .accordion-body { grid-template-columns: 1fr; }
+      .file-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════════════════════════════ -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-wordmark">IIF Converter</div>
-    <div class="login-sub">Perfumora Group &nbsp;·&nbsp; QuickBooks Enterprise</div>
+    <div class="login-sub">Perfumora Group · QuickBooks Enterprise</div>
     <button class="login-btn" id="login-btn">
       <svg viewBox="0 0 24 24">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -700,9 +694,6 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════════
-     MAIN APP
-════════════════════════════════════════════════════════════════ -->
 <div id="app">
   <div class="topbar">
     <div class="topbar-brand">IIF Converter</div>
@@ -714,7 +705,6 @@
   </div>
 
   <div class="layout">
-    <!-- Sidebar -->
     <div class="sidebar">
       <div class="sidebar-label">Workflow</div>
       <div class="step-nav">
@@ -737,15 +727,12 @@
       </div>
     </div>
 
-    <!-- Content -->
     <div class="content">
-
-      <!-- ══ STEP 1: QB Items ══════════════════════════════════ -->
       <div class="step-panel active" id="step-1">
         <div class="step-title">QB Items File</div>
         <div class="step-desc">
-          Upload your QuickBooks Items export (.xlsx or .csv). This maps SKUs → Product/Service names.<br>
-          It's cached in your browser — you only need to upload it once.
+          Upload your QuickBooks Items export (.xlsx or .csv). This maps SKUs → Product/Service names.
+          It is cached in your browser until you replace it.
         </div>
 
         <div id="qb-cached-notice" style="display:none;">
@@ -758,7 +745,7 @@
           <input type="file" id="qb-input" accept=".csv,.xlsx,.xls" onchange="handleQBItems(this.files[0])">
           <div class="upload-icon">📋</div>
           <h3>Drop QB Items file here or click to browse</h3>
-          <p>Accepts .xlsx or .csv &nbsp;·&nbsp; Requires columns: SKU, Product/Service Name</p>
+          <p>Accepts .xlsx or .csv · Requires columns: SKU, Product/Service Name</p>
         </div>
 
         <div id="qb-status"></div>
@@ -769,19 +756,18 @@
         </div>
       </div>
 
-      <!-- ══ STEP 2: Upload Shopify Files ══════════════════════ -->
       <div class="step-panel" id="step-2">
         <div class="step-title">Upload Shopify Exports</div>
         <div class="step-desc">
-          Upload one CSV per brand (up to 4). The <code>Source</code> column automatically routes each row —
+          Upload one or more exports. The <code>Source</code> column routes each row:
           <code>tiktok</code> → TikTok, <code>faire</code> → Faire, blank → Shopify direct.
         </div>
 
         <div class="upload-zone" id="shop-zone" onclick="document.getElementById('shop-input').click()">
-          <input type="file" id="shop-input" accept=".csv,.xlsx" multiple onchange="handleShopifyFiles(this.files)">
+          <input type="file" id="shop-input" accept=".csv,.xlsx,.xls" multiple onchange="handleShopifyFiles(this.files)">
           <div class="upload-icon">🛒</div>
-          <h3>Drop Shopify exports here or click to browse</h3>
-          <p>Select up to 4 files &nbsp;·&nbsp; Brand auto-detected from Vendor column</p>
+          <h3>Drop exports here or click to browse</h3>
+          <p>Select one or more files · Brand auto-detected from Vendor</p>
         </div>
 
         <div class="file-list" id="file-list"></div>
@@ -792,29 +778,40 @@
         </div>
       </div>
 
-      <!-- ══ STEP 3: Configure ══════════════════════════════════ -->
       <div class="step-panel" id="step-3">
         <div class="step-title">Configure</div>
         <div class="step-desc">
-          Set the output period. Drive folders are created automatically:<br>
-          <strong style="color:var(--text)">QB IIF Output / Year / Month / All_Brands_MM-YYYY.iif</strong>
+          Set the posting date. The selected date controls the IIF transaction date, the doc number date portion,
+          and the output file name.
         </div>
 
         <div class="config-grid">
           <div class="form-group">
             <label class="form-label">Month</label>
-            <select class="form-select" id="sel-month" onchange="updatePathPreview()">
-              <option value="01">January</option><option value="02">February</option>
-              <option value="03">March</option><option value="04">April</option>
-              <option value="05">May</option><option value="06">June</option>
-              <option value="07">July</option><option value="08">August</option>
-              <option value="09">September</option><option value="10">October</option>
-              <option value="11">November</option><option value="12">December</option>
+            <select class="form-select" id="sel-month" onchange="syncDateFromMonthYear(); updatePathPreview()">
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
             </select>
           </div>
+
           <div class="form-group">
             <label class="form-label">Year</label>
-            <input class="form-input" type="number" id="sel-year" min="2020" max="2035" oninput="updatePathPreview()">
+            <input class="form-input" type="number" id="sel-year" min="2020" max="2035" oninput="syncDateFromMonthYear(); updatePathPreview()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input class="form-input" type="date" id="sel-date" onchange="syncMonthYearFromDate(); updatePathPreview()">
           </div>
         </div>
 
@@ -828,31 +825,19 @@
           <div class="accordion-body" id="acc-body">
             <div class="acc-field">
               <label>A/R Account</label>
-              <input type="text" id="cf-ar" value="Accounts Receivable">
+              <input type="text" id="cf-ar" value="11000 Accounts Receivable">
             </div>
             <div class="acc-field">
               <label>Sales / Income Account</label>
-              <input type="text" id="cf-sales" value="Income Account">
+              <input type="text" id="cf-sales" value="3000 Sales">
             </div>
             <div class="acc-field">
               <label>Shipping Income Account</label>
-              <input type="text" id="cf-ship" value="Shipping Income">
-            </div>
-            <div class="acc-field">
-              <label>Tax Account</label>
-              <input type="text" id="cf-tax" value="Sales Tax Payable">
+              <input type="text" id="cf-ship" value="3202 Shipping Income">
             </div>
             <div class="acc-field">
               <label>Discount Account</label>
-              <input type="text" id="cf-disc" value="Discounts Given">
-            </div>
-            <div class="acc-field">
-              <label>Tax Vendor Name</label>
-              <input type="text" id="cf-taxvend" value="TaxAgencyVendor">
-            </div>
-            <div class="acc-field">
-              <label>Tax Rate</label>
-              <input type="text" id="cf-taxrate" value="5.00%">
+              <input type="text" id="cf-disc" value="48300 Sales Discounts">
             </div>
             <div class="acc-field">
               <label>Shipping Item Name</label>
@@ -867,11 +852,10 @@
         </div>
       </div>
 
-      <!-- ══ STEP 4: Convert ════════════════════════════════════ -->
       <div class="step-panel" id="step-4">
-        <div class="step-title">Convert &amp; Export</div>
+        <div class="step-title">Convert & Export</div>
         <div class="step-desc">
-          Review the files loaded below, then click Convert. The IIF will be saved to Google Drive and downloaded to your computer.
+          Review the files loaded below, then convert. The IIF will be saved to Google Drive and downloaded to your computer.
         </div>
 
         <div id="pre-convert-summary"></div>
@@ -880,12 +864,10 @@
           ⚡&nbsp; Convert to IIF
         </button>
 
-        <!-- Results (hidden until conversion done) -->
         <div id="results-area" style="display:none;">
-
           <div class="result-box">
             <div class="result-header">
-              <h3>Revenue by Brand &amp; Channel</h3>
+              <h3>Revenue by Brand & Channel</h3>
               <span class="total-badge" id="total-badge"></span>
             </div>
             <table class="result-table">
@@ -918,77 +900,61 @@
           <div></div>
         </div>
       </div>
-
-    </div><!-- /content -->
-  </div><!-- /layout -->
-</div><!-- /app -->
+    </div>
+  </div>
+</div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════
-//  ⚠️  SETUP: Replace with your Google Cloud OAuth 2.0 Client ID
-//  See README.md for how to get this
-// ═══════════════════════════════════════════════════════════════════
 const GOOGLE_CLIENT_ID = '633645127702-pi4s0aba6og7hd3jckirsg26sljbsrce.apps.googleusercontent.com';
 
-const DRIVE_ROOT  = 'QB IIF Output';
-const MONTH_NAMES = ['January','February','March','April','May','June',
-                     'July','August','September','October','November','December'];
+const DRIVE_ROOT = 'QB IIF Output';
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-// ═══════════════════════════════════════════════════════════════════
-//  BRAND CONFIG
-// ═══════════════════════════════════════════════════════════════════
 const BRAND_CONFIG = {
   'Perfumora': {
     notes_map: true,
-    shopify: { customer: 'Shopify - Customer', prefix: 'P'   },
-    tiktok:  { customer: 'Tiktok',             prefix: 'T'   },
-    faire:   { customer: 'Faire',              prefix: 'F'   },
+    shopify: { customer: 'Shopify - Customer', prefix: 'P' },
+    tiktok:  { customer: 'Tiktok', prefix: 'T' },
+    faire:   { customer: 'Faire', prefix: 'F' }
   },
   'Arabian Crest': {
     notes_map: false,
-    shopify: { customer: 'Shopify - AC',       prefix: 'AC'  },
-    tiktok:  { customer: 'Tiktok AC',          prefix: 'TAC' },
-    faire:   { customer: 'Faire',              prefix: 'F'   },
+    shopify: { customer: 'Shopify - AC', prefix: 'AC' },
+    tiktok:  { customer: 'Tiktok AC', prefix: 'TAC' },
+    faire:   { customer: 'Faire', prefix: 'F' }
   },
   'Kumbra': {
     notes_map: false,
-    shopify: { customer: 'Shopify - Kumbra',   prefix: 'KP'  },
-    tiktok:  { customer: 'Tiktok Lux',         prefix: 'TL'  },
-    faire:   { customer: 'Faire',              prefix: 'K'   },
+    shopify: { customer: 'Shopify - Kumbra', prefix: 'KP' },
+    tiktok:  { customer: 'Tiktok Lux', prefix: 'TL' },
+    faire:   { customer: 'Faire', prefix: 'K' }
   },
   'Olfactory X': {
     notes_map: false,
-    shopify: { customer: 'Shopify - OX',       prefix: 'OX'  },
-    tiktok:  { customer: 'Tiktok Olfactory',   prefix: 'TO'  },
-    faire:   { customer: 'Faire',              prefix: 'G'   },
-  },
+    shopify: { customer: 'Shopify - OX', prefix: 'OX' },
+    tiktok:  { customer: 'Tiktok Olfactory', prefix: 'TO' },
+    faire:   { customer: 'Faire', prefix: 'G' }
+  }
 };
 
-// Perfumora — Notes field keyword → [customer, prefix]
 const PERFUMORA_NOTES = [
-  ['Perfumora-Shein',              'Shein',       'S'],
-  ['Perfumora Amazon',             'Amazon',      'A'],
-  ['Wamart Perfumora',             'Walmart',     'W'],
+  ['Perfumora-Shein', 'Shein', 'S'],
+  ['Perfumora Amazon', 'Amazon', 'A'],
+  ['Wamart Perfumora', 'Walmart', 'W'],
   ['Internet Fragrances - Amazon', 'Amazon_IFTG', 'I'],
-  ['perfumora-com',                'Ebay',        'E'],
+  ['perfumora-com', 'Ebay', 'E']
 ];
 
 const INCLUDE_STATUSES = ['paid', 'partially_paid'];
 
-// ═══════════════════════════════════════════════════════════════════
-//  APP STATE
-// ═══════════════════════════════════════════════════════════════════
 const S = {
-  accessToken : null,
-  qbItems     : [],      // [{sku, name}]
-  brandFiles  : [],      // [{id, brand, fileName, rows}]
-  iifContent  : null,
-  iifFileName : null,
+  accessToken: null,
+  qbItems: [],
+  brandFiles: [],
+  iifContent: null,
+  iifFileName: null
 };
 
-// ═══════════════════════════════════════════════════════════════════
-//  GOOGLE AUTH
-// ═══════════════════════════════════════════════════════════════════
 let tokenClient;
 
 function initAuth() {
@@ -998,7 +964,7 @@ function initAuth() {
       tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: GOOGLE_CLIENT_ID,
         scope: 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/userinfo.profile',
-        callback: onToken,
+        callback: onToken
       });
     }
   }, 300);
@@ -1006,24 +972,36 @@ function initAuth() {
 
 function handleLogin() {
   if (GOOGLE_CLIENT_ID.startsWith('YOUR_CLIENT_ID')) {
-    showLoginError('Please set your Google OAuth Client ID in the GOOGLE_CLIENT_ID config at the top of the script. See README.md.');
+    showLoginError('Please set your Google OAuth Client ID in GOOGLE_CLIENT_ID.');
     return;
   }
   tokenClient?.requestAccessToken();
 }
 
 async function onToken(resp) {
-  if (resp.error) { showLoginError('Sign-in failed: ' + resp.error); return; }
+  if (resp.error) {
+    showLoginError('Sign-in failed: ' + resp.error);
+    return;
+  }
+
   S.accessToken = resp.access_token;
+
   try {
-    const u = await fetch('https://www.googleapis.com/oauth2/v2/userinfo',
-      { headers: { Authorization: 'Bearer ' + S.accessToken } }).then(r => r.json());
+    const u = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: { Authorization: 'Bearer ' + S.accessToken }
+    }).then(r => r.json());
+
     document.getElementById('user-name').textContent = u.name || u.email || '';
     const av = document.getElementById('user-avatar');
-    if (u.picture) { av.src = u.picture; av.style.display = 'inline'; }
-  } catch(_) {}
+    if (u.picture) {
+      av.src = u.picture;
+      av.style.display = 'inline';
+    }
+  } catch (_) {}
+
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+
   initDefaults();
   loadCachedQB();
 }
@@ -1031,6 +1009,15 @@ async function onToken(resp) {
 function handleLogout() {
   if (S.accessToken) google.accounts.oauth2.revoke(S.accessToken, () => {});
   S.accessToken = null;
+  S.brandFiles = [];
+  S.iifContent = null;
+  S.iifFileName = null;
+  renderFiles();
+  showEl('pre-convert-summary', '');
+  showEl('results-body', '');
+  showEl('drive-status', '');
+  showEl('sku-warnings', '');
+  document.getElementById('results-area').style.display = 'none';
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
 }
@@ -1041,9 +1028,6 @@ function showLoginError(msg) {
   el.style.display = 'block';
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════════════════════════════
 function goToStep(n) {
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.step-item').forEach(i => i.classList.remove('active'));
@@ -1058,14 +1042,91 @@ function markDone(n) {
   document.getElementById('snum-' + n).textContent = '✓';
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  STEP 1 — QB ITEMS
-// ═══════════════════════════════════════════════════════════════════
+function initDefaults() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+
+  document.getElementById('sel-month').value = mm;
+  document.getElementById('sel-year').value = yyyy;
+  document.getElementById('sel-date').value = `${yyyy}-${mm}-${dd}`;
+
+  updatePathPreview();
+}
+
+function syncMonthYearFromDate() {
+  const dateVal = document.getElementById('sel-date').value;
+  if (!dateVal) return;
+  const [y, m] = dateVal.split('-');
+  document.getElementById('sel-year').value = y;
+  document.getElementById('sel-month').value = m;
+}
+
+function syncDateFromMonthYear() {
+  const year = parseInt(document.getElementById('sel-year').value || '0', 10);
+  const month = parseInt(document.getElementById('sel-month').value || '1', 10);
+  if (!year) return;
+
+  const dateInput = document.getElementById('sel-date');
+  let day = 1;
+
+  if (dateInput.value) {
+    const parts = dateInput.value.split('-');
+    day = parseInt(parts[2] || '1', 10);
+  } else {
+    day = new Date().getDate();
+  }
+
+  const maxDay = new Date(year, month, 0).getDate();
+  if (day > maxDay) day = maxDay;
+
+  dateInput.value = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+function getSelectedDateRaw() {
+  const dateVal = document.getElementById('sel-date').value;
+  if (dateVal) return dateVal;
+  const y = document.getElementById('sel-year').value;
+  const m = document.getElementById('sel-month').value;
+  return `${y}-${m}-01`;
+}
+
+function updatePathPreview() {
+  const m = document.getElementById('sel-month')?.value;
+  const y = document.getElementById('sel-year')?.value;
+  const rawDate = getSelectedDateRaw();
+  if (!m || !y || !rawDate) return;
+
+  const [, , dd] = rawDate.split('-');
+  const mn = MONTH_NAMES[parseInt(m, 10) - 1];
+  const fn = `All_Brands_${dd}-${m}-${y}.iif`;
+
+  document.getElementById('drive-path').innerHTML =
+    `📁 <span class="seg">${DRIVE_ROOT}</span><span class="sep"> / </span>` +
+    `<span class="seg">${y}</span><span class="sep"> / </span>` +
+    `<span class="seg">${mn}</span><span class="sep"> / </span>` +
+    `<span class="seg">${fn}</span>`;
+}
+
+function toggleAccordion() {
+  const body = document.getElementById('acc-body');
+  const arrow = document.getElementById('acc-arrow');
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'grid';
+  arrow.textContent = open ? '▼' : '▲';
+}
+
 function handleQBItems(file) {
   if (!file) return;
   const ext = file.name.split('.').pop().toLowerCase();
+
   if (ext === 'csv') {
-    Papa.parse(file, { header: true, skipEmptyLines: true, complete: r => saveQB(r.data, file.name) });
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: r => saveQB(r.data, file.name)
+    });
   } else {
     const fr = new FileReader();
     fr.onload = e => {
@@ -1079,11 +1140,16 @@ function handleQBItems(file) {
 function saveQB(data, fileName) {
   S.qbItems = data
     .filter(r => r['SKU'] && r['Product/Service Name'])
-    .map(r => ({ sku: String(r['SKU']).trim(), name: String(r['Product/Service Name']).trim() }));
+    .map(r => ({
+      sku: String(r['SKU']).trim(),
+      name: String(r['Product/Service Name']).trim()
+    }));
+
   try {
     localStorage.setItem('qb_items', JSON.stringify(S.qbItems));
     localStorage.setItem('qb_file', fileName);
-  } catch(_) {}
+  } catch (_) {}
+
   showEl('qb-status', `<div class="status-msg status-success">✓ ${S.qbItems.length} SKUs loaded from "${fileName}"</div>`);
   markDone(1);
 }
@@ -1091,45 +1157,67 @@ function saveQB(data, fileName) {
 function loadCachedQB() {
   try {
     const cached = localStorage.getItem('qb_items');
-    const file   = localStorage.getItem('qb_file');
+    const file = localStorage.getItem('qb_file');
     if (!cached) return;
+
     S.qbItems = JSON.parse(cached);
     const notice = document.getElementById('qb-cached-notice');
     notice.style.display = 'block';
     document.getElementById('qb-cached-text').textContent =
       `${S.qbItems.length} SKUs cached from "${file}" — upload new file to refresh`;
+
     markDone(1);
-  } catch(_) {}
+  } catch (_) {}
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  STEP 2 — SHOPIFY FILES
-// ═══════════════════════════════════════════════════════════════════
 function handleShopifyFiles(files) {
   Array.from(files).forEach(f => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const rawContent = e.target.result;
-      Papa.parse(f, {
-        header: true, skipEmptyLines: true,
-        complete: r => addBrandFile(f.name, r.data, rawContent),
-      });
-    };
-    reader.readAsText(f);
+    const ext = f.name.split('.').pop().toLowerCase();
+
+    if (ext === 'csv') {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const rawContent = e.target.result;
+        Papa.parse(f, {
+          header: true,
+          skipEmptyLines: true,
+          complete: r => addBrandFile(f.name, r.data, rawContent)
+        });
+      };
+      reader.readAsText(f);
+    } else if (ext === 'xlsx' || ext === 'xls') {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const wb = XLSX.read(e.target.result, { type: 'array' });
+        const sheet = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet);
+        const rawContent = XLSX.utils.sheet_to_csv(sheet);
+        addBrandFile(f.name, rows, rawContent);
+      };
+      reader.readAsArrayBuffer(f);
+    }
   });
 }
 
 function addBrandFile(fileName, rows, rawContent) {
   const vendor = rows.find(r => r['Vendor'])?.Vendor || '';
-  const brand  = detectBrand(vendor);
-  S.brandFiles.push({ id: Date.now() + Math.random(), brand, fileName, rows, rawContent });
+  const brand = detectBrand(vendor);
+
+  S.brandFiles.push({
+    id: Date.now() + Math.random(),
+    brand,
+    fileName,
+    rows,
+    rawContent
+  });
+
   renderFiles();
   markDone(2);
 }
 
 function detectBrand(vendor) {
-  const v = vendor.toUpperCase();
-  if (v.includes('KUMBRA'))    return 'Kumbra';
+  const v = String(vendor || '').toUpperCase();
+  if (v.includes('KUMBRA')) return 'Kumbra';
   if (v.includes('ARABIAN') || v.includes('CREST')) return 'Arabian Crest';
   if (v.includes('OLFACTORY')) return 'Olfactory X';
   return 'Perfumora';
@@ -1140,7 +1228,7 @@ function renderFiles() {
     <div class="file-row">
       <div>
         <div class="file-name">${f.fileName}</div>
-        <div class="file-meta">${f.rows.length} rows &nbsp;·&nbsp; Vendor: ${f.rows[0]?.Vendor || '—'}</div>
+        <div class="file-meta">${f.rows.length} rows · Vendor: ${f.rows[0]?.Vendor || '—'}</div>
       </div>
       <select class="brand-select" onchange="S.brandFiles[${i}].brand=this.value">
         ${Object.keys(BRAND_CONFIG).map(b =>
@@ -1157,53 +1245,20 @@ function removeFile(i) {
   renderFiles();
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  STEP 3 — CONFIGURE
-// ═══════════════════════════════════════════════════════════════════
-function initDefaults() {
-  const now = new Date();
-  document.getElementById('sel-month').value = String(now.getMonth() + 1).padStart(2, '0');
-  document.getElementById('sel-year').value  = now.getFullYear();
-  updatePathPreview();
-}
-
-function updatePathPreview() {
+function buildPreSummary() {
   const m = document.getElementById('sel-month')?.value;
   const y = document.getElementById('sel-year')?.value;
-  if (!m || !y) return;
-  const mn = MONTH_NAMES[parseInt(m) - 1];
-  const fn = `All_Brands_${m}-${y}.iif`;
-  document.getElementById('drive-path').innerHTML =
-    `📁 <span class="seg">${DRIVE_ROOT}</span><span class="sep"> / </span>` +
-    `<span class="seg">${y}</span><span class="sep"> / </span>` +
-    `<span class="seg">${mn}</span><span class="sep"> / </span>` +
-    `<span class="seg">${fn}</span>`;
-}
-
-function toggleAccordion() {
-  const body  = document.getElementById('acc-body');
-  const arrow = document.getElementById('acc-arrow');
-  const open  = body.style.display !== 'none';
-  body.style.display = open ? 'none' : 'grid';
-  arrow.textContent  = open ? '▼' : '▲';
-}
-
-// ═══════════════════════════════════════════════════════════════════
-//  STEP 4 — PRE-CONVERT SUMMARY
-// ═══════════════════════════════════════════════════════════════════
-function buildPreSummary() {
-  const m  = document.getElementById('sel-month')?.value;
-  const y  = document.getElementById('sel-year')?.value;
-  const mn = m ? MONTH_NAMES[parseInt(m) - 1] : '—';
+  const d = document.getElementById('sel-date')?.value || '—';
+  const mn = m ? MONTH_NAMES[parseInt(m, 10) - 1] : '—';
 
   let html = `<div class="result-box">
     <div class="result-header"><h3>Files to Convert</h3></div>
     <table class="result-table">
-      <thead><tr><th>File</th><th>Brand</th><th>Rows</th><th>Period</th></tr></thead>
+      <thead><tr><th>File</th><th>Brand</th><th>Rows</th><th>Period</th><th>Posting Date</th></tr></thead>
       <tbody>`;
 
   if (!S.brandFiles.length) {
-    html += `<tr><td colspan="4" style="color:var(--text-muted);text-align:center;padding:20px">
+    html += `<tr><td colspan="5" style="color:var(--text-muted);text-align:center;padding:20px">
       No files uploaded — go back to Step 2</td></tr>`;
   } else {
     S.brandFiles.forEach(f => {
@@ -1212,16 +1267,15 @@ function buildPreSummary() {
         <td>${f.brand}</td>
         <td class="mono-cell">${f.rows.length}</td>
         <td class="mono-cell">${mn} ${y}</td>
+        <td class="mono-cell">${d}</td>
       </tr>`;
     });
   }
+
   html += `</tbody></table></div>`;
   document.getElementById('pre-convert-summary').innerHTML = html;
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  CONVERSION HELPERS
-// ═══════════════════════════════════════════════════════════════════
 function splitSku(s) {
   if (typeof s !== 'string') return s;
   const p = s.split('-');
@@ -1239,42 +1293,63 @@ function esc(v) {
 }
 
 function fmtDate(d) {
-  return `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`;
+  return `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${d.getFullYear()}`;
 }
 
-function parseDate(v) {
-  try { const d = new Date(String(v).trim()); if (!isNaN(d)) return fmtDate(d); } catch(_) {}
-  return fmtDate(new Date());
+function fmtDateFromInput(dateStr) {
+  if (!dateStr) return fmtDate(new Date());
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d)) return fmtDate(new Date());
+  return fmtDate(d);
+}
+
+function yyyymmddFromInput(dateStr) {
+  if (!dateStr) {
+    const d = new Date();
+    return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+  }
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d)) {
+    const fallback = new Date();
+    return `${fallback.getFullYear()}${String(fallback.getMonth() + 1).padStart(2, '0')}${String(fallback.getDate()).padStart(2, '0')}`;
+  }
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
 }
 
 function customerFor(row, cfg) {
   const src = String(row._src || '').toLowerCase().trim();
+
   if (src === 'tiktok') return [cfg.tiktok.customer, cfg.tiktok.prefix];
-  if (src === 'faire')  return [cfg.faire.customer,  cfg.faire.prefix];
+  if (src === 'faire') return [cfg.faire.customer, cfg.faire.prefix];
+
   if (cfg.notes_map) {
     const notes = String(row['Notes'] || '');
     for (const [kw, cust, pfx] of PERFUMORA_NOTES) {
       if (notes.includes(kw)) return [cust, pfx];
     }
   }
+
   return [cfg.shopify.customer, cfg.shopify.prefix];
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  MAIN CONVERT
-// ═══════════════════════════════════════════════════════════════════
 async function runConvert() {
-  if (!S.brandFiles.length) { alert('Upload at least one Shopify export (Step 2).'); return; }
+  if (!S.brandFiles.length) {
+    alert('Upload at least one export in Step 2.');
+    return;
+  }
+
+  const postingDateRaw = getSelectedDateRaw();
+  const postingDateIIF = fmtDateFromInput(postingDateRaw);
+  const postingDateDoc = yyyymmddFromInput(postingDateRaw);
 
   const btn = document.getElementById('convert-btn');
   btn.disabled = true;
   btn.innerHTML = '<div class="spinner"></div>&nbsp; Converting...';
   document.getElementById('results-area').style.display = 'none';
 
-  await sleep(50); // let UI update
+  await sleep(50);
 
   try {
-    // Build SKU map
     const skuMap = {};
     S.qbItems.forEach(it => { skuMap[it.sku] = it.name; });
 
@@ -1286,52 +1361,73 @@ async function runConvert() {
       const cfg = BRAND_CONFIG[bf.brand];
       if (!cfg) return;
 
-      // Filter paid
+      const paidOrderNames = new Set(
+        bf.rows
+          .filter(r => {
+            const st = String(r['Financial Status'] || '').toLowerCase().trim();
+            return INCLUDE_STATUSES.includes(st);
+          })
+          .map(r => String(r['Name'] || '').trim())
+          .filter(Boolean)
+      );
+
       const paid = bf.rows.filter(r => {
-        const st = String(r['Financial Status'] || '').toLowerCase().trim();
-        if (!INCLUDE_STATUSES.includes(st)) { skippedRows++; return false; }
-        return true;
+        const orderName = String(r['Name'] || '').trim();
+        const keep = paidOrderNames.has(orderName);
+        if (!keep) skippedRows++;
+        return keep;
       });
 
-      // Forward-fill Source per order Name
       const srcByOrder = {};
-      paid.forEach(r => { if (r['Source'] && !srcByOrder[r['Name']]) srcByOrder[r['Name']] = r['Source']; });
+      paid.forEach(r => {
+        const orderName = String(r['Name'] || '').trim();
+        const source = String(r['Source'] || '').trim().toLowerCase();
+        if (orderName && source && !srcByOrder[orderName]) {
+          srcByOrder[orderName] = source;
+        }
+      });
 
       paid.forEach(r => {
-        r._src  = srcByOrder[r['Name']] || '';
-        r._sku  = splitSku(String(r['Lineitem sku'] || '').trim());
+        const orderName = String(r['Name'] || '').trim();
+
+        r._src = String(srcByOrder[orderName] || '').toLowerCase().trim();
+        r._sku = splitSku(String(r['Lineitem sku'] || '').trim());
         r._prod = skuMap[r._sku] || '';
-        if (!r._prod) unmatchedSkus.add(r._sku);
+
+        if (!r._prod && r._sku) unmatchedSkus.add(r._sku);
+
         const [cust, pfx] = customerFor(r, cfg);
-        r._cust  = cust;
-        r._pfx   = pfx;
+
+        r._cust = cust;
+        r._pfx = pfx;
         r._brand = bf.brand;
-        r._inv   = pfx + String(r['Name'] || '').replace('#', '').trim();
-        r._date  = parseDate(r['Paid at'] || r['Created at']);
+
+        r._inv = pfx + postingDateDoc;
+        r._groupKey = `${bf.brand}||${orderName}||${r._src || 'shopify'}`;
+        r._date = postingDateIIF;
+
         allRows.push(r);
       });
     });
 
-    // Generate IIF
     const qbc = getQBC();
     const { iif, summary } = makeIIF(allRows, qbc);
-    const m  = document.getElementById('sel-month').value;
-    const y  = document.getElementById('sel-year').value;
-    S.iifFileName = `All_Brands_${m}-${y}.iif`;
-    S.iifContent  = iif;
 
-    // Show results
+    const m = document.getElementById('sel-month').value;
+    const y = document.getElementById('sel-year').value;
+    const rawDate = getSelectedDateRaw();
+    const [, , dd] = rawDate.split('-');
+    S.iifFileName = `All_Brands_${dd}-${m}-${y}.iif`;
+    S.iifContent = iif;
+
     renderResults(summary, unmatchedSkus, skippedRows);
     document.getElementById('results-area').style.display = 'block';
     markDone(4);
 
-    // Save to Drive
-    await saveToDrive(iif, S.iifFileName, y, MONTH_NAMES[parseInt(m) - 1]);
-
-  } catch(err) {
+    await saveToDrive(iif, S.iifFileName, y, MONTH_NAMES[parseInt(m, 10) - 1]);
+  } catch (err) {
     console.error(err);
-    showEl('drive-status',
-      `<div class="status-msg status-error">❌ Error: ${err.message}</div>`);
+    showEl('drive-status', `<div class="status-msg status-error">❌ Error: ${err.message}</div>`);
     document.getElementById('results-area').style.display = 'block';
   } finally {
     btn.disabled = false;
@@ -1341,16 +1437,12 @@ async function runConvert() {
 
 function getQBC() {
   return {
-    ar:          v('cf-ar'),
-    sales:       v('cf-sales'),
-    shipping:    v('cf-ship'),
-    tax:         v('cf-tax'),
-    disc:        v('cf-disc'),
-    taxVend:     v('cf-taxvend'),
-    taxRate:     v('cf-taxrate'),
-    shipItem:    v('cf-shipitem'),
-    taxItem:     'Sales Tax',
-    discItem:    'Discount',
+    ar:       v('cf-ar'),
+    sales:    v('cf-sales'),
+    shipping: v('cf-ship'),
+    disc:     v('cf-disc'),
+    shipItem: v('cf-shipitem'),
+    discItem: 'Discount'
   };
 }
 
@@ -1358,52 +1450,86 @@ function makeIIF(rows, c) {
   const lines = [
     '!TRNS\tTRNSID\tTRNSTYPE\tDATE\tACCNT\tNAME\tCLASS\tAMOUNT\tDOCNUM\tMEMO\tCLEAR\tTOPRINT\tNAMEISTAXABLE\tDUEDATE\tTERMS\tPAID\tPAYMETH',
     '!SPL\tSPLID\tTRNSTYPE\tDATE\tACCNT\tNAME\tCLASS\tAMOUNT\tDOCNUM\tMEMO\tCLEAR\tQNTY\tPRICE\tINVITEM\tPAYMETH\tTAXABLE\tVALADJ\tREIMBEXP',
-    '!ENDTRNS',
+    '!ENDTRNS'
   ];
 
-  // Group by invoice
   const groups = {};
-  rows.forEach(r => { (groups[r._inv] = groups[r._inv] || []).push(r); });
+  rows.forEach(r => {
+    const key = r._groupKey || r._inv;
+    (groups[key] = groups[key] || []).push(r);
+  });
 
   const summary = {};
 
-  Object.entries(groups).forEach(([inv, grp]) => {
-    const h    = grp[0];
+  Object.entries(groups).forEach(([, grp]) => {
+    const h = grp[0];
     const cust = esc(h._cust);
-    const dt   = esc(h._date);
-    const doc  = esc(inv);
+    const dt = esc(h._date);
+    const doc = esc(h._inv);
     const memo = `${h._brand} | ${cust} | ${h['Name'] || ''}`.substring(0, 100);
 
     let items = 0;
-    grp.forEach(r => { items += $n(r['Lineitem quantity']) * $n(r['Lineitem price']); });
-    const ship = $n(h['Shipping']);
-    const tax  = $n(h['Taxes']);
-    const disc = $n(h['Discount Amount']);
-    const tot  = items + ship + tax - disc;
+    grp.forEach(r => {
+      const qty = $n(r['Lineitem quantity']) || 1;
+      const price = $n(r['Lineitem price']) || 0;
+      const hasLineItem =
+        String(r._sku || '').trim() ||
+        String(r['Lineitem sku'] || '').trim() ||
+        String(r['Lineitem name'] || '').trim();
 
-    // Summary
-    const src  = String(h._src || '').toLowerCase() || 'shopify';
+      if (!hasLineItem) return;
+      items += qty * price;
+    });
+
+    const ship = $n(h['Shipping']);
+    const disc = $n(h['Discount Amount']);
+    const tot = items + ship - disc;
+
+    const src = String(h._src || '').toLowerCase() || 'shopify';
     const bKey = h._brand;
-    const cKey = cust;
+    const sKey = `${cust}__${src}`;
+
     if (!summary[bKey]) summary[bKey] = {};
-    if (!summary[bKey][cKey]) summary[bKey][cKey] = { customer: cust, channel: src, orders: 0, revenue: 0 };
-    summary[bKey][cKey].orders++;
-    summary[bKey][cKey].revenue += items;
+    if (!summary[bKey][sKey]) {
+      summary[bKey][sKey] = {
+        customer: cust,
+        channel: src,
+        orders: 0,
+        revenue: 0
+      };
+    }
+
+    summary[bKey][sKey].orders++;
+    summary[bKey][sKey].revenue += items;
 
     lines.push(`TRNS\t\tINVOICE\t${dt}\t${c.ar}\t${cust}\t\t${tot.toFixed(2)}\t${doc}\t${memo}\tN\tY\tY\t${dt}\t\tN\t`);
 
     grp.forEach(r => {
-      const qty   = $n(r['Lineitem quantity']);
+      const qty = $n(r['Lineitem quantity']);
       const price = $n(r['Lineitem price']);
-      if (!qty && !price) return;
-      const prod = esc(r._prod || r['Lineitem name'] || r._sku);
-      const item = prod.substring(0, 31) || esc(r._sku).substring(0, 31);
-      lines.push(`SPL\t\tINVOICE\t${dt}\t${c.sales}\t\t\t${(-(qty*price)).toFixed(2)}\t${doc}\t${prod.substring(0,100)}\tN\t${qty}\t${price.toFixed(2)}\t${item}\t\tY\tN\tNOTHING`);
+      const hasLineItem =
+        String(r._sku || '').trim() ||
+        String(r['Lineitem sku'] || '').trim() ||
+        String(r['Lineitem name'] || '').trim();
+
+      if (!hasLineItem) return;
+
+      const finalQty = qty || 1;
+      const finalPrice = price || 0;
+
+      const prod = esc(r._prod || r['Lineitem name'] || r._sku || r['Lineitem sku']);
+      const item = esc(r._sku || r['Lineitem sku'] || '');
+
+      lines.push(`SPL\t\tINVOICE\t${dt}\t${c.sales}\t\t\t${(-(finalQty * finalPrice)).toFixed(2)}\t${doc}\t${prod.substring(0,100)}\tN\t${finalQty}\t${finalPrice.toFixed(2)}\t${item}\t\tY\tN\tNOTHING`);
     });
 
-    if (ship > 0) lines.push(`SPL\t\tINVOICE\t${dt}\t${c.shipping}\t\t\t-${ship.toFixed(2)}\t${doc}\tShipping\tN\t1\t${ship.toFixed(2)}\t${c.shipItem}\t\tN\tN\tNOTHING`);
-    if (tax  > 0) lines.push(`SPL\t\tINVOICE\t${dt}\t${c.tax}\t${c.taxVend}\t\t-${tax.toFixed(2)}\t${doc}\tSales Tax\tN\t\t${c.taxRate}\t${c.taxItem}\t\tN\tN\tNOTHING`);
-    if (disc > 0) lines.push(`SPL\t\tINVOICE\t${dt}\t${c.disc}\t\t\t${disc.toFixed(2)}\t${doc}\tDiscount\tN\t\t\t${c.discItem}\t\tN\tN\tNOTHING`);
+    if (ship > 0) {
+      lines.push(`SPL\t\tINVOICE\t${dt}\t${c.shipping}\t\t\t-${ship.toFixed(2)}\t${doc}\tShipping\tN\t1\t${ship.toFixed(2)}\t${c.shipItem}\t\tN\tN\tNOTHING`);
+    }
+
+    if (disc > 0) {
+      lines.push(`SPL\t\tINVOICE\t${dt}\t${c.disc}\t\t\t${disc.toFixed(2)}\t${doc}\tDiscount\tN\t\t\t${c.discItem}\t\tN\tN\tNOTHING`);
+    }
 
     lines.push('ENDTRNS');
   });
@@ -1415,39 +1541,44 @@ function renderResults(summary, unmatchedSkus, skipped) {
   let totalRev = 0;
   let html = '';
 
-  Object.entries(summary).sort(([a],[b]) => a.localeCompare(b)).forEach(([brand, channels]) => {
+  Object.entries(summary).sort(([a], [b]) => a.localeCompare(b)).forEach(([brand, channels]) => {
     Object.entries(channels).forEach(([, d]) => {
       totalRev += d.revenue;
       const ch = d.channel === 'tiktok' ? 'tiktok' : d.channel === 'faire' ? 'faire' : 'shopify';
+
       html += `<tr>
         <td>${brand}</td>
         <td><span class="channel-badge badge-${ch}">${ch}</span></td>
         <td>${d.customer}</td>
         <td class="mono-cell" style="text-align:center">${d.orders}</td>
-        <td class="right-cell">$${d.revenue.toLocaleString('en-US',{minimumFractionDigits:2})}</td>
+        <td class="right-cell">$${d.revenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
       </tr>`;
     });
   });
 
-  document.getElementById('results-body').innerHTML = html || '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:16px">No paid orders found</td></tr>';
-  document.getElementById('total-badge').textContent = `Total: $${totalRev.toLocaleString('en-US',{minimumFractionDigits:2})}`;
+  document.getElementById('results-body').innerHTML =
+    html || '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:16px">No paid orders found</td></tr>';
+
+  document.getElementById('total-badge').textContent =
+    `Total: $${totalRev.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
   let warn = '';
   if (unmatchedSkus.size > 0) {
     const list = [...unmatchedSkus].filter(s => s && s !== 'undefined').slice(0, 12).join(', ');
-    warn += `<div class="status-msg status-warn">⚠️ ${unmatchedSkus.size} unmatched SKU(s) — product names from QB Items not found, using Lineitem name as fallback: ${list}${unmatchedSkus.size > 12 ? '…' : ''}</div>`;
+    warn += `<div class="status-msg status-warn">⚠️ ${unmatchedSkus.size} unmatched SKU(s) — QB Items name not found, using Lineitem name as fallback: ${list}${unmatchedSkus.size > 12 ? '…' : ''}</div>`;
   }
+
   if (skipped > 0) {
     warn += `<div class="status-msg status-info">ℹ️ ${skipped} rows skipped (refunded / non-paid orders)</div>`;
   }
+
   showEl('sku-warnings', warn);
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  GOOGLE DRIVE
-// ═══════════════════════════════════════════════════════════════════
 async function driveGet(url) {
-  const r = await fetch(url, { headers: { Authorization: 'Bearer ' + S.accessToken } });
+  const r = await fetch(url, {
+    headers: { Authorization: 'Bearer ' + S.accessToken }
+  });
   if (!r.ok) throw new Error(`Drive ${r.status}: ${r.statusText}`);
   return r.json();
 }
@@ -1455,21 +1586,30 @@ async function driveGet(url) {
 async function drivePost(url, body) {
   const r = await fetch(url, {
     method: 'POST',
-    headers: { Authorization: 'Bearer ' + S.accessToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    headers: {
+      Authorization: 'Bearer ' + S.accessToken,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
   });
   if (!r.ok) throw new Error(`Drive ${r.status}: ${r.statusText}`);
   return r.json();
 }
 
 async function findOrCreate(name, parentId) {
-  let q = `name='${name}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;
+  let q = `name='${String(name).replace(/'/g, "\\'")}' and mimeType='application/vnd.google-apps.folder' and trashed=false`;
   if (parentId) q += ` and '${parentId}' in parents`;
+
   const res = await driveGet(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=files(id)&supportsAllDrives=true`);
-  if (res.files?.length) { console.log('Found folder:', name, res.files[0].id); return res.files[0].id; }
-  const meta = { name, mimeType: 'application/vnd.google-apps.folder', ...(parentId ? { parents: [parentId] } : {}) };
+  if (res.files?.length) return res.files[0].id;
+
+  const meta = {
+    name,
+    mimeType: 'application/vnd.google-apps.folder',
+    ...(parentId ? { parents: [parentId] } : {})
+  };
+
   const created = await drivePost('https://www.googleapis.com/drive/v3/files?supportsAllDrives=true', meta);
-  console.log('Created folder:', name, created.id);
   return created.id;
 }
 
@@ -1477,30 +1617,31 @@ async function uploadFile(content, fileName, parentId) {
   const boundary = 'iif_boundary_xyz';
   const meta = JSON.stringify({ name: fileName, parents: [parentId] });
   const body = `--${boundary}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${boundary}\r\nContent-Type: text/plain\r\n\r\n${content}\r\n--${boundary}--`;
+
   const r = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name&supportsAllDrives=true', {
     method: 'POST',
     headers: {
       Authorization: 'Bearer ' + S.accessToken,
-      'Content-Type': `multipart/related; boundary="${boundary}"`,
+      'Content-Type': `multipart/related; boundary="${boundary}"`
     },
-    body,
+    body
   });
+
   if (!r.ok) throw new Error(`Upload failed: ${r.status}`);
   return r.json();
 }
 
 async function saveToDrive(content, fileName, year, monthName) {
   showEl('drive-status', '<div class="status-msg status-info"><div class="spinner spinner-amber"></div>&nbsp; Saving to Google Drive...</div>');
+
   try {
-    const today   = fmtDate(new Date()).replace(/[/]/g, '-');
-    const rootId  = await findOrCreate(DRIVE_ROOT);
-    const yearId  = await findOrCreate(String(year), rootId);
+    const today = fmtDate(new Date()).replace(/\//g, '-');
+    const rootId = await findOrCreate(DRIVE_ROOT);
+    const yearId = await findOrCreate(String(year), rootId);
     const monthId = await findOrCreate(monthName, yearId);
 
-    // Save IIF
     await uploadFile(content, fileName, monthId);
 
-    // Save each brand CSV into its own subfolder
     const savedBrands = [];
     for (const bf of S.brandFiles) {
       if (!bf.rawContent) continue;
@@ -1516,10 +1657,10 @@ async function saveToDrive(content, fileName, year, monthName) {
       '<div class="status-msg status-success">Saved to Drive: ' +
       DRIVE_ROOT + ' / ' + year + ' / ' + monthName + ' /<br>' +
       '&nbsp;&nbsp;&nbsp;- ' + fileName + brandLines + '</div>');
-  } catch(err) {
+  } catch (err) {
     console.error('Drive save error full:', err);
     showEl('drive-status',
-      '<div class="status-msg status-error">Drive save failed: ' + err.message + 
+      '<div class="status-msg status-error">Drive save failed: ' + err.message +
       '<br><small>Open browser console (F12) for details.</small></div>');
   }
 }
@@ -1528,61 +1669,73 @@ async function testDriveAccess() {
   const btn = document.getElementById('test-drive-btn');
   btn.textContent = 'Testing...';
   btn.disabled = true;
+
   try {
-    // Test 1: List files
     const r = await fetch('https://www.googleapis.com/drive/v3/files?pageSize=5&fields=files(id,name)', {
       headers: { Authorization: 'Bearer ' + S.accessToken }
     });
+
     const data = await r.json();
-    console.log('Drive test response:', data);
+
     if (data.error) {
       showEl('drive-status', '<div class="status-msg status-error">Drive error: ' + data.error.message + ' (code ' + data.error.code + ')</div>');
     } else {
       showEl('drive-status', '<div class="status-msg status-success">Drive access OK! Found ' + (data.files?.length || 0) + ' files. Now trying to save...</div>');
-      await saveToDrive(S.iifContent, S.iifFileName,
+      await saveToDrive(
+        S.iifContent,
+        S.iifFileName,
         document.getElementById('sel-year').value,
-        MONTH_NAMES[parseInt(document.getElementById('sel-month').value) - 1]);
+        MONTH_NAMES[parseInt(document.getElementById('sel-month').value, 10) - 1]
+      );
     }
-  } catch(e) {
+  } catch (e) {
     showEl('drive-status', '<div class="status-msg status-error">Test failed: ' + e.message + '</div>');
   }
+
   btn.textContent = 'Test Drive & Retry';
   btn.disabled = false;
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  DOWNLOAD
-// ═══════════════════════════════════════════════════════════════════
 function downloadIIF() {
   if (!S.iifContent) return;
   const blob = new Blob([S.iifContent], { type: 'text/plain' });
-  const url  = URL.createObjectURL(blob);
-  const a    = Object.assign(document.createElement('a'), { href: url, download: S.iifFileName });
+  const url = URL.createObjectURL(blob);
+  const a = Object.assign(document.createElement('a'), {
+    href: url,
+    download: S.iifFileName
+  });
   a.click();
   URL.revokeObjectURL(url);
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  UTILS
-// ═══════════════════════════════════════════════════════════════════
 const v = id => document.getElementById(id)?.value?.trim() || '';
-const showEl = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
-const sleep  = ms => new Promise(res => setTimeout(res, ms));
+const showEl = (id, html) => {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+};
+const sleep = ms => new Promise(res => setTimeout(res, ms));
 
 function setupDrop(zoneId, handler) {
   const z = document.getElementById(zoneId);
   if (!z) return;
-  z.addEventListener('dragover',  e => { e.preventDefault(); z.classList.add('dragover'); });
+
+  z.addEventListener('dragover', e => {
+    e.preventDefault();
+    z.classList.add('dragover');
+  });
+
   z.addEventListener('dragleave', () => z.classList.remove('dragover'));
-  z.addEventListener('drop', e => { e.preventDefault(); z.classList.remove('dragover'); handler(e.dataTransfer.files); });
+
+  z.addEventListener('drop', e => {
+    e.preventDefault();
+    z.classList.remove('dragover');
+    handler(e.dataTransfer.files);
+  });
 }
 
-// ═══════════════════════════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('login-btn').addEventListener('click', handleLogin);
-  setupDrop('qb-zone',   files => handleQBItems(files[0]));
+  setupDrop('qb-zone', files => handleQBItems(files[0]));
   setupDrop('shop-zone', files => handleShopifyFiles(files));
   initAuth();
 });
